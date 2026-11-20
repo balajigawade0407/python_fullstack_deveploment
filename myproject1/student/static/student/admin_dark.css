@@ -1,0 +1,300 @@
+/* ---------- Colour tokens (beat Django's own dark mode) ---------- */
+html:root:not([data-theme]),
+html:root[data-theme] {
+    --primary: #1e2331;
+    --secondary: #2a3144;
+    --accent: #7f8cff;
+    --primary-fg: #e9ecf4;
+
+    --body-fg: #e9ecf4;
+    --body-bg: #0f1219;
+    --body-quiet-color: #8b94a9;
+    --body-loud-color: #ffffff;
+
+    --header-color: #e9ecf4;
+    --header-branding-color: #e9ecf4;
+    --header-bg: #171b26;
+    --header-link-color: #e9ecf4;
+
+    --breadcrumbs-fg: #8b94a9;
+    --breadcrumbs-link-fg: #e9ecf4;
+    --breadcrumbs-bg: #171b26;
+
+    --link-fg: #9aa5ff;
+    --link-hover-color: #5fd0c5;
+    --link-selected-fg: #5fd0c5;
+
+    --hairline-color: #2a3144;
+    --border-color: #2a3144;
+    --error-fg: #ff7b8a;
+
+    --message-success-bg: rgba(95, 208, 197, 0.12);
+    --message-warning-bg: rgba(255, 196, 87, 0.12);
+    --message-error-bg: rgba(255, 123, 138, 0.12);
+
+    --darkest-bg: #0f1219;
+    --darker-bg: #171b26;
+    --selected-bg: #232a3b;
+    --selected-row: #232a3b;
+
+    --button-fg: #0f1219;
+    --button-bg: #7f8cff;
+    --button-hover-bg: #5fd0c5;
+    --default-button-bg: #7f8cff;
+    --default-button-hover-bg: #5fd0c5;
+    --close-button-bg: #2a3144;
+    --close-button-hover-bg: #3a4360;
+    --object-tools-fg: #0f1219;
+    --object-tools-bg: #7f8cff;
+    --object-tools-hover-bg: #5fd0c5;
+
+    --font-family-primary: "Manrope", "Segoe UI", system-ui, sans-serif;
+    color-scheme: dark;
+}
+
+/* ---------- Base ---------- */
+html, body, input, select, textarea, button { font-family: "Manrope", "Segoe UI", system-ui, sans-serif; }
+
+body {
+    color: #e9ecf4;
+    background:
+        radial-gradient(900px 500px at 15% -10%, rgba(127, 140, 255, 0.14), transparent 60%),
+        radial-gradient(700px 400px at 100% 110%, rgba(95, 208, 197, 0.08), transparent 60%),
+        #0f1219 !important;
+}
+
+a:link, a:visited { color: #9aa5ff; transition: color 0.2s ease; }
+a:hover { color: #5fd0c5; }
+
+/* ---------- Header and breadcrumbs ---------- */
+#header {
+    background: rgba(23, 27, 38, 0.9) !important;
+    border-bottom: 1px solid #2a3144;
+    backdrop-filter: blur(12px);
+    padding: 14px 28px;
+}
+#site-name a, #site-name a:link, #site-name a:visited { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.01em; color: #e9ecf4 !important; }
+#user-tools { font-size: 0.85rem; }
+div.breadcrumbs { background: #171b26 !important; border-bottom: 1px solid #2a3144; color: #8b94a9; padding: 12px 28px; }
+
+/* ---------- Sidebar ---------- */
+#nav-sidebar { background: #131722 !important; border-right: 1px solid #2a3144 !important; }
+#nav-filter {
+    background: #1e2331 !important; color: #e9ecf4 !important;
+    border: 1px solid #2a3144 !important; border-radius: 12px !important; margin: 12px; width: calc(100% - 24px);
+}
+.toggle-nav-sidebar { background: #171b26 !important; border-right: 1px solid #2a3144 !important; color: #8b94a9 !important; }
+.toggle-nav-sidebar:hover { color: #5fd0c5 !important; }
+
+/* ---------- Cards (dashboard modules) ---------- */
+.module {
+    background: #171b26 !important;
+    border: 1px solid #2a3144 !important;
+    border-radius: 18px !important;
+    overflow: hidden;
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+}
+.module caption, .module h2, #changelist-filter h2, #changelist-filter-header, .inline-group h2 {
+    background: #1e2331 !important;
+    color: #e9ecf4 !important;
+    font-size: 0.95rem !important;
+    font-weight: 800 !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+    padding: 14px 18px !important;
+}
+.module caption a, .module caption a:link, .module caption a:visited { color: #e9ecf4 !important; }
+.module th, .module td { padding: 12px 18px; }
+.module tr { transition: background 0.15s ease; }
+.module tr:hover { background: #232a3b; }
+
+.addlink, .changelink { font-weight: 700; }
+.addlink { color: #5fd0c5 !important; background-image: none !important; padding-left: 0 !important; }
+.addlink::before { content: "+ "; }
+
+/* ---------- Result tables ---------- */
+.results { background: #171b26; border: 1px solid #2a3144; border-radius: 18px; overflow: auto; }
+#result_list { width: 100%; border-collapse: collapse; }
+#result_list thead th {
+    background: #1e2331 !important; color: #8b94a9 !important;
+    border-bottom: 1px solid #2a3144 !important; padding: 14px 18px; font-size: 0.85rem;
+}
+#result_list thead th a { color: #8b94a9 !important; }
+#result_list tbody tr { background: transparent !important; transition: background 0.15s ease; }
+#result_list tbody tr:hover { background: #232a3b !important; }
+#result_list tbody th, #result_list tbody td { padding: 14px 18px; border-bottom: 1px solid #222838 !important; }
+#result_list tbody th a { font-weight: 800; }
+#result_list tbody tr.selected { background: rgba(127, 140, 255, 0.12) !important; }
+
+/* ---------- Toolbar, search, actions, date links ---------- */
+#toolbar { background: transparent !important; border: none !important; padding: 0 0 12px !important; }
+#changelist-search input[type="text"] { min-width: 260px; }
+#changelist .actions { background: transparent !important; border: none !important; color: #8b94a9; padding: 12px 0; }
+.toplinks { margin: 8px 0 16px; }
+.toplinks a {
+    display: inline-block; padding: 5px 14px; margin-right: 8px;
+    background: #1e2331; border: 1px solid #2a3144; border-radius: 999px; font-weight: 600;
+}
+.toplinks a:hover { border-color: #7f8cff; }
+
+/* ---------- Filter panel ---------- */
+#changelist-filter {
+    background: #171b26 !important; border: 1px solid #2a3144 !important;
+    border-radius: 18px !important; overflow: hidden;
+}
+#changelist-filter h3 { color: #8b94a9; font-size: 0.85rem; padding: 14px 18px 4px; margin: 0; text-transform: none; }
+#changelist-filter ul { padding: 4px 12px 12px; }
+#changelist-filter li a { display: block; padding: 7px 10px; border-radius: 10px; color: #e9ecf4 !important; transition: background 0.15s ease; }
+#changelist-filter li a:hover { background: #232a3b; }
+#changelist-filter li.selected a { background: rgba(127, 140, 255, 0.16); color: #9aa5ff !important; font-weight: 700; }
+
+/* ---------- Inputs ---------- */
+input[type="text"], input[type="password"], input[type="email"], input[type="url"],
+input[type="number"], input[type="date"], input[type="time"], input[type="search"], textarea, select {
+    background: #1e2331 !important; color: #e9ecf4 !important;
+    border: 1px solid #2a3144 !important; border-radius: 12px !important;
+    padding: 9px 13px; transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+input:focus, textarea:focus, select:focus {
+    outline: none; border-color: #7f8cff !important; box-shadow: 0 0 0 4px rgba(127, 140, 255, 0.2);
+}
+label, .form-row label { color: #b4bccd; font-weight: 600; }
+.help, .form-row .help { color: #8b94a9; }
+fieldset { border: none !important; }
+.form-row { border-bottom: 1px solid #222838 !important; padding: 16px 18px; }
+
+/* ---------- Buttons ---------- */
+.button, input[type="submit"], input[type="button"], .submit-row input, a.button, .actions button {
+    background: linear-gradient(135deg, #7f8cff, #5fd0c5) !important;
+    color: #0f1219 !important; border: none !important; border-radius: 12px !important;
+    padding: 10px 18px !important; font-weight: 800 !important; cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.button:hover, input[type="submit"]:hover, .submit-row input:hover, a.button:hover, .actions button:hover {
+    transform: translateY(-2px); box-shadow: 0 12px 28px rgba(127, 140, 255, 0.35);
+}
+.object-tools a { background: linear-gradient(135deg, #7f8cff, #5fd0c5) !important; color: #0f1219 !important; border-radius: 999px !important; font-weight: 800; padding: 8px 18px; }
+.submit-row { background: #171b26 !important; border: 1px solid #2a3144 !important; border-radius: 16px !important; padding: 14px 18px; }
+.submit-row a.deletelink { background: rgba(255, 123, 138, 0.12) !important; color: #ff7b8a !important; border: 1px solid rgba(255, 123, 138, 0.4); border-radius: 12px; padding: 10px 18px; }
+.submit-row a.deletelink:hover { background: #ff7b8a !important; color: #0f1219 !important; }
+
+/* ---------- Pagination and messages ---------- */
+.paginator { background: transparent !important; border: none !important; color: #8b94a9; padding: 14px 0; }
+.paginator a:link, .paginator a:visited { background: #1e2331; border-radius: 10px; padding: 4px 10px; }
+.paginator .this-page { background: #7f8cff; color: #0f1219; border-radius: 10px; padding: 4px 10px; font-weight: 800; }
+ul.messagelist li { border-radius: 14px !important; border: 1px solid #2a3144; color: #e9ecf4 !important; }
+
+/* ---------- Dashboard hero ---------- */
+.hero {
+    background: linear-gradient(135deg, rgba(127, 140, 255, 0.16), rgba(95, 208, 197, 0.08)), #171b26;
+    border: 1px solid #2a3144; border-radius: 24px; padding: 30px; margin-bottom: 28px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+}
+.hero-hello { font-size: 1.6rem; font-weight: 800; letter-spacing: -0.02em; margin: 0; color: #e9ecf4; }
+.hero-sub { margin: 6px 0 22px; color: #8b94a9; }
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; margin-bottom: 22px; }
+.stat-card { background: #1e2331; border: 1px solid #2a3144; border-radius: 16px; padding: 16px 18px; transition: border-color 0.2s ease, transform 0.2s ease; }
+.stat-card:hover { border-color: #7f8cff; transform: translateY(-2px); }
+.stat-label { display: block; font-size: 0.85rem; color: #8b94a9; }
+.stat-value { display: block; font-size: 1.9rem; font-weight: 800; letter-spacing: -0.02em; color: #e9ecf4; }
+.quick { display: flex; flex-wrap: wrap; gap: 10px; }
+.quick a, .quick a:link, .quick a:visited {
+    padding: 10px 18px; border-radius: 12px; font-weight: 800; text-decoration: none;
+    color: #0f1219; background: linear-gradient(135deg, #7f8cff, #5fd0c5); transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.quick a:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(127, 140, 255, 0.35); color: #0f1219; }
+.quick a.ghost, .quick a.ghost:link, .quick a.ghost:visited { background: #1e2331; color: #e9ecf4; border: 1px solid #2a3144; }
+.quick a.ghost:hover { border-color: #7f8cff; box-shadow: none; color: #e9ecf4; }
+
+/* ---------- Scrollbars and focus ---------- */
+* { scrollbar-width: thin; scrollbar-color: #3a4360 #131722; }
+:focus-visible { outline: 2px solid #7f8cff; outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+/* ---------- Admin login page polish ---------- */
+html:root { background: #0f1219 !important; min-height: 100%; }
+
+html body.login {
+    background:
+        radial-gradient(900px 500px at 15% -10%, rgba(127, 140, 255, 0.18), transparent 60%),
+        radial-gradient(700px 400px at 100% 110%, rgba(95, 208, 197, 0.10), transparent 60%),
+        #0f1219 !important;
+    min-height: 100vh;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+}
+
+html body.login #container {
+    margin: 0 !important;
+    width: min(92vw, 420px) !important;
+    min-width: 0 !important;
+    background: #171b26;
+    border: 1px solid #2a3144 !important;
+    border-radius: 24px !important;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+    overflow: hidden;
+}
+
+html body.login #header { padding: 26px 24px; justify-content: center; }
+html body.login #content { padding: 8px 24px 28px; }
+
+html body.login .submit-row {
+    background: transparent !important;
+    border: none !important;
+    padding: 8px 0 0 !important;
+    margin: 0 !important;
+}
+
+html body.login .submit-row input[type="submit"] {
+    width: 100%;
+    padding: 14px 18px !important;
+    font-size: 1rem;
+}
+
+html body.login .form-row { border: none !important; padding: 10px 0; }
+html body.login input[type="text"],
+html body.login input[type="password"] { width: 100% !important; box-sizing: border-box; padding: 13px 16px; }
+
+/* ---------- Dashboard layout and link fixes ---------- */
+.quick a, .quick a:link, .quick a:visited, .quick a:hover,
+.object-tools a, .submit-row a.deletelink {
+    text-decoration: none !important;
+}
+
+#content-related {
+    background: transparent !important;
+    border: none !important;
+}
+
+body.dashboard #content {
+    width: auto !important;
+    max-width: 1280px;
+    margin: 0 auto !important;
+    padding: 24px 28px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 28px;
+    align-items: start;
+}
+
+body.dashboard #content > h1,
+body.dashboard #content > .hero {
+    grid-column: 1 / -1;
+}
+
+body.dashboard #content-main { grid-column: 1; min-width: 0; float: none !important; width: auto !important; }
+
+body.dashboard #content-related {
+    grid-column: 2;
+    float: none !important;
+    position: static !important;
+    width: auto !important;
+    margin: 0 !important;
+}
+
+@media (max-width: 900px) {
+    body.dashboard #content { grid-template-columns: 1fr; }
+    body.dashboard #content-main,
+    body.dashboard #content-related { grid-column: 1; }
+}

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ contact_name }} | Contact</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0f1219;
+            --surface: #171b26;
+            --surface-2: #1e2331;
+            --line: #2a3144;
+            --text: #e9ecf4;
+            --muted: #8b94a9;
+            --accent: #7f8cff;
+            --accent-2: #5fd0c5;
+            --radius: 18px;
+            --font: "Manrope", "Segoe UI", system-ui, -apple-system, sans-serif;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 24px;
+            background:
+                radial-gradient(900px 500px at 15% -10%, rgba(127, 140, 255, 0.14), transparent 60%),
+                radial-gradient(700px 400px at 100% 110%, rgba(95, 208, 197, 0.09), transparent 60%),
+                var(--bg);
+            color: var(--text);
+            font-family: var(--font);
+            line-height: 1.5;
+        }
+
+        .contact {
+            --mx: 50%;
+            --my: 0%;
+            position: relative;
+            width: min(100%, 560px);
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 24px;
+            padding: 36px;
+            overflow: hidden;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+            animation: rise 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+        }
+
+        .contact::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(320px circle at var(--mx) var(--my), rgba(127, 140, 255, 0.16), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+        .contact:hover::before { opacity: 1; }
+
+        .head {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .avatar {
+            flex: none;
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #0f1219;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            box-shadow: 0 0 0 4px var(--surface), 0 0 0 6px var(--line);
+        }
+
+        .head h1 {
+            font-size: 1.7rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            line-height: 1.15;
+            word-break: break-word;
+        }
+
+        .head p {
+            margin-top: 4px;
+            font-size: 0.9rem;
+            color: var(--muted);
+        }
+
+        .actions {
+            position: relative;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .action {
+            display: block;
+            padding: 12px;
+            text-align: center;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 0.95rem;
+            color: #0f1219;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            border-radius: 14px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .action.secondary {
+            color: var(--text);
+            background: var(--surface-2);
+            border: 1px solid var(--line);
+        }
+        .action:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(127, 140, 255, 0.3); }
+        .action.secondary:hover { border-color: var(--accent); box-shadow: none; }
+        .action:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; }
+
+        .fields {
+            position: relative;
+            display: grid;
+            gap: 12px;
+        }
+
+        .field {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            width: 100%;
+            padding: 16px 18px;
+            text-align: left;
+            font: inherit;
+            color: inherit;
+            background: var(--surface-2);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: border-color 0.2s ease, transform 0.2s ease, background 0.2s ease;
+        }
+
+        .field:hover {
+            border-color: var(--accent);
+            background: #232a3b;
+            transform: translateX(4px);
+        }
+        .field:active { transform: translateX(4px) scale(0.99); }
+        .field:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+        .label {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--muted);
+            margin-bottom: 2px;
+        }
+
+        .value {
+            display: block;
+            font-size: 1.1rem;
+            font-weight: 600;
+            word-break: break-word;
+        }
+
+        .copy {
+            flex: none;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--muted);
+            padding: 4px 10px;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            transition: color 0.2s ease, border-color 0.2s ease;
+        }
+        .field:hover .copy { color: var(--accent); border-color: var(--accent); }
+
+        .hint {
+            position: relative;
+            margin-top: 20px;
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+
+        .toast {
+            position: fixed;
+            left: 50%;
+            bottom: 28px;
+            transform: translate(-50%, 20px);
+            padding: 10px 18px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            background: var(--surface-2);
+            border: 1px solid var(--accent-2);
+            border-radius: 12px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease, transform 0.25s ease;
+        }
+        .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+        @keyframes rise {
+            from { opacity: 0; transform: translateY(18px); }
+            to { opacity: 1; transform: none; }
+        }
+
+        @media (max-width: 480px) {
+            .contact { padding: 24px; }
+            .head { flex-direction: column; align-items: flex-start; }
+            .actions { grid-template-columns: 1fr; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before { animation: none !important; transition: none !important; }
+        }
+    </style>
+</head>
+<body>
+    <main class="contact" id="card">
+        <header class="head">
+            <div class="avatar" id="avatar" aria-hidden="true">?</div>
+            <div>
+                <h1 id="contact-name">{{ contact_name }}</h1>
+                <p>{{ contact_number }}</p>
+            </div>
+        </header>
+
+        <div class="actions">
+            <a class="action" href="tel:{{ contact_number }}">Call</a>
+            <a class="action secondary" href="https://www.google.com/maps/search/?api=1&query={{ address|urlencode }}" target="_blank" rel="noopener">Open in Maps</a>
+        </div>
+
+        <section class="fields" aria-label="Contact details">
+            <button type="button" class="field" data-copy="{{ contact_name }}">
+                <span>
+                    <span class="label">Contact name</span>
+                    <span class="value">{{ contact_name }}</span>
+                </span>
+                <span class="copy">Copy</span>
+            </button>
+
+            <button type="button" class="field" data-copy="{{ contact_number }}">
+                <span>
+                    <span class="label">Contact number</span>
+                    <span class="value">{{ contact_number }}</span>
+                </span>
+                <span class="copy">Copy</span>
+            </button>
+
+            <button type="button" class="field" data-copy="{{ address }}">
+                <span>
+                    <span class="label">Address</span>
+                    <span class="value">{{ address }}</span>
+                </span>
+                <span class="copy">Copy</span>
+            </button>
+        </section>
+
+        <p class="hint">Select any row to copy its value.</p>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script>
+        (function () {
+            var card = document.getElementById("card");
+            var toast = document.getElementById("toast");
+            var toastTimer;
+
+            // Avatar initials from the contact name
+            var name = document.getElementById("contact-name").textContent.trim();
+            var parts = name.split(/\s+/).filter(Boolean);
+            var initials = parts.slice(0, 2).map(function (p) { return p[0]; }).join("").toUpperCase();
+            document.getElementById("avatar").textContent = initials || "?";
+
+            // Cursor spotlight
+            card.addEventListener("pointermove", function (e) {
+                var r = card.getBoundingClientRect();
+                card.style.setProperty("--mx", (e.clientX - r.left) + "px");
+                card.style.setProperty("--my", (e.clientY - r.top) + "px");
+            });
+
+            // Copy to clipboard with toast confirmation
+            function showToast(msg) {
+                toast.textContent = msg;
+                toast.classList.add("show");
+                clearTimeout(toastTimer);
+                toastTimer = setTimeout(function () { toast.classList.remove("show"); }, 1800);
+            }
+
+            function fallbackCopy(text) {
+                var ta = document.createElement("textarea");
+                ta.value = text;
+                ta.style.position = "fixed";
+                ta.style.opacity = "0";
+                document.body.appendChild(ta);
+                ta.select();
+                try { document.execCommand("copy"); } catch (e) {}
+                document.body.removeChild(ta);
+            }
+
+            document.querySelectorAll(".field").forEach(function (btn) {
+                btn.addEventListener("click", function () {
+                    var text = btn.dataset.copy;
+                    var label = btn.querySelector(".label").textContent;
+                    if (navigator.clipboard && window.isSecureContext) {
+                        navigator.clipboard.writeText(text).catch(function () { fallbackCopy(text); });
+                    } else {
+                        fallbackCopy(text);
+                    }
+                    showToast(label + " copied");
+                });
+            });
+        })();
+    </script>
+</body>
+</html>

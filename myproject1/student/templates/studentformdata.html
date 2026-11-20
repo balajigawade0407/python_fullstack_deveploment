@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+    <title>Student Registration</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0f1219;
+            --surface: #171b26;
+            --surface-2: #1e2331;
+            --line: #2a3144;
+            --text: #e9ecf4;
+            --muted: #8b94a9;
+            --accent: #7f8cff;
+            --accent-2: #5fd0c5;
+            --danger: #ff7b8a;
+            --font: "Manrope", "Segoe UI", system-ui, -apple-system, sans-serif;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 24px;
+            background:
+                radial-gradient(900px 500px at 15% -10%, rgba(127, 140, 255, 0.14), transparent 60%),
+                radial-gradient(700px 400px at 100% 110%, rgba(95, 208, 197, 0.09), transparent 60%),
+                var(--bg);
+            color: var(--text);
+            font-family: var(--font);
+            line-height: 1.5;
+        }
+
+        .form-card {
+            --mx: 50%;
+            --my: 0%;
+            position: relative;
+            width: min(100%, 480px);
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 24px;
+            padding: 36px;
+            overflow: hidden;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+            animation: rise 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+        }
+
+        .form-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(320px circle at var(--mx) var(--my), rgba(127, 140, 255, 0.16), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+        .form-card:hover::before { opacity: 1; }
+        .form-card > * { position: relative; }
+
+        h1 {
+            font-size: 1.7rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
+
+        .sub {
+            margin: 6px 0 22px;
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .alert {
+            margin-bottom: 18px;
+            padding: 10px 14px;
+            font-size: 0.9rem;
+            border-radius: 12px;
+        }
+        .alert.success {
+            color: var(--accent-2);
+            background: rgba(95, 208, 197, 0.1);
+            border: 1px solid rgba(95, 208, 197, 0.35);
+        }
+        .alert.error {
+            color: var(--danger);
+            background: rgba(255, 123, 138, 0.08);
+            border: 1px solid rgba(255, 123, 138, 0.35);
+        }
+
+        .field { margin-bottom: 16px; }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--muted);
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 16px;
+            font: inherit;
+            color: var(--text);
+            background: var(--surface-2);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        input::placeholder { color: #5d667b; }
+        input:hover { border-color: #3a4360; }
+
+        input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(127, 140, 255, 0.18);
+        }
+
+        .field.has-error input { border-color: var(--danger); }
+        .field.has-error input:focus { box-shadow: 0 0 0 4px rgba(255, 123, 138, 0.18); }
+
+        .errors {
+            margin-top: 6px;
+            list-style: none;
+            font-size: 0.85rem;
+            color: var(--danger);
+        }
+
+        .actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .btn {
+            padding: 14px 22px;
+            font: inherit;
+            font-weight: 800;
+            font-size: 1rem;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+        }
+
+        .btn-primary {
+            flex: 1;
+            color: #0f1219;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            border: none;
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(127, 140, 255, 0.35); }
+        .btn-primary:active { transform: translateY(0) scale(0.99); }
+        .btn-primary[disabled] { opacity: 0.7; cursor: progress; transform: none; box-shadow: none; }
+
+        .btn-ghost {
+            color: var(--text);
+            background: var(--surface-2);
+            border: 1px solid var(--line);
+            font-weight: 600;
+        }
+        .btn-ghost:hover { border-color: var(--accent); }
+
+        .btn:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; }
+
+        @keyframes rise {
+            from { opacity: 0; transform: translateY(18px); }
+            to { opacity: 1; transform: none; }
+        }
+
+        @media (max-width: 520px) {
+            .form-card { padding: 24px; }
+            .actions { flex-direction: column-reverse; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before { animation: none !important; transition: none !important; }
+        }
+    </style>
+</head>
+<body>
+    <main class="form-card" id="card">
+        <h1>Student registration</h1>
+        <p class="sub">Enter the student's details to register them.</p>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {{ message.tags }}" role="alert">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+
+        <form method="POST" id="student-form" novalidate>
+            {% csrf_token %}
+
+            <div class="field {% if form.reg_no1.errors %}has-error{% endif %}">
+                <label for="id_reg_no1">Register number</label>
+                <input type="number" id="id_reg_no1" name="reg_no1" placeholder="e.g. 1001" value="{{ form.reg_no1.value|default_if_none:'' }}" required>
+                {% if form.reg_no1.errors %}
+                    <ul class="errors">{% for error in form.reg_no1.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+                {% endif %}
+            </div>
+
+            <div class="field {% if form.name1.errors %}has-error{% endif %}">
+                <label for="id_name1">Name</label>
+                <input type="text" id="id_name1" name="name1" placeholder="Full name" autocomplete="name" value="{{ form.name1.value|default_if_none:'' }}" required>
+                {% if form.name1.errors %}
+                    <ul class="errors">{% for error in form.name1.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+                {% endif %}
+            </div>
+
+            <div class="field {% if form.email1.errors %}has-error{% endif %}">
+                <label for="id_email1">Email</label>
+                <input type="email" id="id_email1" name="email1" placeholder="name@example.com" autocomplete="email" value="{{ form.email1.value|default_if_none:'' }}" required>
+                {% if form.email1.errors %}
+                    <ul class="errors">{% for error in form.email1.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+                {% endif %}
+            </div>
+            
+                        <div class="field {% if form.marks1.errors %}has-error{% endif %}">
+                <label for="id_marks1">Marks (optional)</label>
+                <input type="number" id="id_marks1" name="marks1" placeholder="e.g. 85" value="{{ form.marks1.value|default_if_none:'' }}">
+                {% if form.marks1.errors %}
+                    <ul class="errors">{% for error in form.marks1.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+                {% endif %}
+            </div>
+
+            <div class="field {% if form.dob1.errors %}has-error{% endif %}">
+                <label for="id_dob1">Date of birth (optional)</label>
+                <input type="date" id="id_dob1" name="dob1" value="{{ form.dob1.value|default_if_none:'' }}">
+                {% if form.dob1.errors %}
+                    <ul class="errors">{% for error in form.dob1.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+                {% endif %}
+            </div>
+            
+            <div class="actions">
+                <a class="btn btn-ghost" href="{% url 'student_form' %}" style="text-decoration:none;text-align:center;">Clear</a>
+                <button type="submit" class="btn btn-primary" id="submit">Register</button>
+            </div>
+        </form>
+    </main>
+
+    <script>
+        (function () {
+            var card = document.getElementById("card");
+            var form = document.getElementById("student-form");
+            var submit = document.getElementById("submit");
+
+            card.addEventListener("pointermove", function (e) {
+                var r = card.getBoundingClientRect();
+                card.style.setProperty("--mx", (e.clientX - r.left) + "px");
+                card.style.setProperty("--my", (e.clientY - r.top) + "px");
+            });
+
+            form.addEventListener("submit", function () {
+                submit.disabled = true;
+                submit.textContent = "Registering...";
+            });
+        })();
+    </script>
+</body>
+</html>

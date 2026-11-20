@@ -1,0 +1,30 @@
+{% extends "admin/index.html" %}
+
+{% block content %}
+<section class="hero">
+    <p class="hero-hello">Welcome back, {{ user.get_username }}</p>
+    <p class="hero-sub">Here is how your student records look today.</p>
+
+    <div class="stat-grid">
+        <div class="stat-card">
+            <span class="stat-label">Total students</span>
+            <span class="stat-value">{{ student_count }}</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-label">Average marks</span>
+            <span class="stat-value">{{ avg_marks|floatformat:1|default:"-" }}</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-label">Highest marks</span>
+            <span class="stat-value">{{ top_marks|default_if_none:"-" }}</span>
+        </div>
+    </div>
+
+    <div class="quick">
+        <a href="{% url 'admin:student_student_table_add' %}">Add student</a>
+        <a class="ghost" href="{% url 'admin:student_student_table_changelist' %}">View all students</a>
+        <a class="ghost" href="{% url 'home' %}">Open website</a>
+    </div>
+</section>
+{{ block.super }}
+{% endblock %}
